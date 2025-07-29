@@ -6,11 +6,23 @@ import { EnrollmentStepper } from "./components/EnrollmentStepper";
 
 function App() {
   const initialState = {
-    formSinglePageInput1: "",
+    uid: "",
+    companyCode: "", // agency code
+    idNumber: "", // NRIC/FIN
+    idType: "NRIC", // ID type (NRIC/FIN)
+    firstName: "",
     lastName: "",
-    gender: "",
+    middleName: "",
+    aliasName: "", // nickname
     email: "",
-    address: "",
+    mobileNumber: "",
+    officeNumber: "",
+    faxNumber: "",
+    employmentTitle: "",
+    employmentType: "Permanent", // Permanent, Fixed Term, Casual, Secondment/Attachment, Adjunct Worker, Intern, Sponsorship Holder, Deployed Worker, Scholarship Holder, External Contracted, Temporary, Non-Agency
+    tivoIndicator: false, // based on previous field
+    reportingManagerName: "",
+    reportingManagerEmail: "",
   };
   const [submitted, setSubmitted] = useState(false);
   const [details, setDetails] = useState(initialState);

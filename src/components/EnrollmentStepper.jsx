@@ -41,7 +41,7 @@ export const EnrollmentStepper = ({ details, handleChange, submit }) => {
   return (
     <>
       <Stepper methods={stepMethods} />
-      <section className="shadow rounded p-5">
+      <section className="shadow rounded p-5 container">
         <Form>{getComponent()}</Form>
       </section>
       <div className="d-flex justify-content-end">
