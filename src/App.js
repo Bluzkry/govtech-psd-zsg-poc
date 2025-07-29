@@ -1,17 +1,8 @@
 import React, { useState } from "react";
-import {
-  Breadcrumb,
-  Button,
-  Col,
-  DatePicker,
-  Footer,
-  Form,
-  InputGroup,
-  Row,
-  Stepper,
-  useStep,
-} from "@govtechsg/sgds-react";
+import { Breadcrumb, Button, Footer } from "@govtechsg/sgds-react";
 import { SgdsMasthead } from "@govtechsg/sgds-web-component/react";
+
+import { EnrollmentStepper } from "./components/EnrollmentStepper";
 
 function App() {
   const initialState = {
@@ -23,6 +14,7 @@ function App() {
   };
   const [submitted, setSubmitted] = useState(false);
   const [details, setDetails] = useState(initialState);
+
   const handleChange = (e) => {
     setDetails({
       ...details,
@@ -30,200 +22,11 @@ function App() {
     });
   };
 
-  const ComponentOne = (
-    <>
-      <Col sm={8}>
-        <Row>
-          <Form.Group
-            as={Col}
-            xs={12}
-            md={6}
-            className="mb-3"
-            controlId="formMultiPageInput1"
-          >
-            <Form.Label>Label</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Text goes here"
-              name="formMultiPageInput1"
-              onChange={handleChange}
-              value={details.formSinglePageInput1}
-            />
-          </Form.Group>
-          <Form.Group
-            as={Col}
-            xs={12}
-            md={6}
-            className="mb-3"
-            controlId="formMultiPageInput2"
-          >
-            <Form.Label>Label</Form.Label>
-            <Form.Control type="text" placeholder="Text goes here" />
-          </Form.Group>
-        </Row>
-        <Form.Group className="mb-3" controlId="formMultiPageInput3">
-          <Form.Label>Label</Form.Label>
-          <InputGroup className="mb-3">
-            <Form.Control
-              placeholder="Text goes here"
-              aria-label="Dollar amount (with dot and two decimal places)"
-            />
-            <InputGroup.Text>@something</InputGroup.Text>
-          </InputGroup>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formMultiPageInput4">
-          <Form.Label>Label</Form.Label>
-          <Form.Control type="text" placeholder="Text goes here" />
-        </Form.Group>
-        <Form.Group className="mb-4" controlId="formMultiPageDatepicker1">
-          <Form.Label>Label</Form.Label>
-          <DatePicker />
-        </Form.Group>
-      </Col>
-    </>
-  );
-  const ComponentTwo = (
-    <>
-      <Col sm={8}>
-        <Form.Group className="mb-3" controlId="formMultiPage2Select1">
-          <Form.Label>Label</Form.Label>
-          <Form.Select>
-            <option>Text goes here</option>
-            <option>Text goes here</option>
-            <option>Text goes here</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formMultiPage2Radio2">
-          <Form.Label>Label</Form.Label>
-          <Form.Check type="radio" name="radioGroup1" label="Input 1" />
-          <Form.Check type="radio" name="radioGroup1" label="Input 2" />
-          <Form.Check type="radio" name="radioGroup1" label="Input 3" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formMultiPage2Input5">
-          <Form.Label>Label</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={5}
-            type="text"
-            placeholder="This is the text that has been filled in"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formMultiPage2Checkbox1">
-          <Form.Check
-            type="checkbox"
-            label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
-          />
-        </Form.Group>
-      </Col>
-    </>
-  );
-  const ComponentThree = (
-    <>
-      <Col sm={8}>
-        <Row>
-          <Form.Group
-            as={Col}
-            xs={12}
-            md={6}
-            className="mb-3"
-            controlId="formMultiPage3Input1"
-          >
-            <Form.Label>Label</Form.Label>
-            <Form.Control type="text" placeholder="Text goes here" />
-          </Form.Group>
-          <Form.Group
-            as={Col}
-            xs={12}
-            md={6}
-            className="mb-3"
-            controlId="formMultiPage3Input2"
-          >
-            <Form.Label>Label</Form.Label>
-            <Form.Control type="text" placeholder="Text goes here" />
-          </Form.Group>
-        </Row>
-        <Form.Group className="mb-3" controlId="formMultiPage3Input3">
-          <Form.Label>Label</Form.Label>
-          <InputGroup className="mb-3">
-            <Form.Control
-              placeholder="Text goes here"
-              aria-label="Dollar amount (with dot and two decimal places)"
-            />
-            <InputGroup.Text>@something</InputGroup.Text>
-          </InputGroup>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formMultiPage3Input4">
-          <Form.Label>Label</Form.Label>
-          <Form.Control type="text" placeholder="Text goes here" />
-        </Form.Group>
-        <Form.Group className="mb-4" controlId="formMultiPage3Datepicker1">
-          <Form.Label>Label</Form.Label>
-          <DatePicker />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formMultiPage3Select1">
-          <Form.Label>Label</Form.Label>
-          <Form.Select>
-            <option>Text goes here</option>
-            <option>Text goes here</option>
-            <option>Text goes here</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formMultiPage3Radio1">
-          <Form.Label>Label</Form.Label>
-          <Form.Check type="radio" name="radioGroup1" label="Input 1" />
-          <Form.Check type="radio" name="radioGroup1" label="Input 2" />
-          <Form.Check type="radio" name="radioGroup1" label="Input 3" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formMultiPage3Input5">
-          <Form.Label>Label</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={5}
-            type="text"
-            placeholder="This is the text that has been filled in"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox1">
-          <Form.Check
-            type="checkbox"
-            label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
-          />
-        </Form.Group>
-      </Col>
-    </>
-  );
-  const stepMethods = useStep([
-    {
-      component: ComponentOne,
-      title: "Marker 1",
-      stepHeader: "Marker 1",
-    },
-    {
-      component: ComponentTwo,
-      title: "Marker 2",
-      stepHeader: "Marker 2",
-    },
-    {
-      component: ComponentThree,
-      title: "Marker 3",
-      stepHeader: "Marker 3",
-    },
-  ]);
-  const {
-    state: stepState,
-    stepsMetadata,
-    getTitle,
-    nextStep,
-    prevStep,
-    getNextButtonTitle,
-    getBackButtonTitle,
-    getComponent,
-    reset,
-  } = stepMethods;
   const submit = () => {
     alert("Form Submitted");
     setSubmitted(true);
   };
+
   return (
     <>
       {submitted ? (
@@ -257,31 +60,11 @@ function App() {
                   <Button variant="secondary">Next</Button>
                 </div>
               </sgds-content-header-top>
-              <Stepper methods={stepMethods} />
-              <section className="shadow rounded p-5">
-                <Form>{getComponent()}</Form>
-              </section>
-              <div className="d-flex justify-content-end">
-                {getBackButtonTitle() && (
-                  <Button
-                    onClick={prevStep}
-                    variant="outline-dark"
-                    className="me-3"
-                  >
-                    {getBackButtonTitle()}
-                  </Button>
-                )}
-                <Button
-                  onClick={
-                    stepsMetadata.isLastStep(stepState.currentStep)
-                      ? submit
-                      : nextStep
-                  }
-                  variant="secondary"
-                >
-                  {getNextButtonTitle()}
-                </Button>
-              </div>
+              <EnrollmentStepper
+                details={details}
+                handleChange={handleChange}
+                submit={submit}
+              />
             </sgds-content-area>
           </sgds-template-grid>
           <Footer>
