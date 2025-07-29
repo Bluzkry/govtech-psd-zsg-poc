@@ -12,7 +12,6 @@ import {
   useStep,
 } from "@govtechsg/sgds-react";
 import { SgdsMasthead } from "@govtechsg/sgds-web-component/react";
-import "./App.css";
 
 function App() {
   const initialState = {
