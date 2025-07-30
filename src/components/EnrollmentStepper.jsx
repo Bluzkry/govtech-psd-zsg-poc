@@ -15,7 +15,9 @@ export const EnrollmentStepper = ({ details, handleChange, submit }) => {
       stepHeader: "Marker 1",
     },
     {
-      component: <EmploymentDetails />,
+      component: (
+        <EmploymentDetails details={details} handleChange={handleChange} />
+      ),
       title: "Marker 2",
       stepHeader: "Marker 2",
     },

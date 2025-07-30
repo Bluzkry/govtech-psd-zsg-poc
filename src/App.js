@@ -23,6 +23,22 @@ function App() {
     tivoIndicator: false, // based on previous field
     reportingManagerName: "",
     reportingManagerEmail: "",
+    department: "",
+    primaryPosition: true,
+    officeAddressBlockNumber: "",
+    officeAddressStreetName: "",
+    officeAddressFloorNumber: "",
+    officeAddressUnitNumber: "",
+    officeAddressBuildingName: "",
+    officeAddressPostalCode: "",
+    officeCity: "",
+    officeState: "",
+    officeCountry: "",
+    officeAddressUnformatted: "", // for unformatted addresses
+    costCentreId: "",
+    costCentreName: "",
+    costCentreHead: "",
+    remarks: "",
   };
   const [submitted, setSubmitted] = useState(false);
   const [details, setDetails] = useState(initialState);
