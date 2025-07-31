@@ -1,0 +1,173 @@
+openapi: 3.0.4
+info:
+  title: POCDEX Plus - OpenAPI 3.0
+  description: |-
+    This is the POCDEX Plus Server API based on the OpenAPI 3.0 specification.
+  version: 0.0.1
+tags:
+  - name: employee management
+    description: Add and retrieve PSD employees
+paths:
+  /employees:
+    get:
+      tags:
+        - employees
+      summary: Get all employees
+      operationId: ""
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmployeesDto"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /employee:
+    post:
+      tags:
+        - employee
+      summary: Add a new employee
+      operationId: ""
+      requestBody:
+        description: Add a new employee to the POCDEX Plus DB
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmployeeDto"
+        required: true
+      responses:
+        "200":
+          description: Successful operation which returns the employee object with the unique ID populated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmployeeDto"
+        "400":
+          description: Invalid input
+        "422":
+          description: Validation exception
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /employee/findByNRICorFIN:
+    get:
+      tags:
+        - employee
+      summary: Finds employees by their NRIC/FIN ID.
+      operationId: ""
+      parameters:
+        - name: id
+          in: query
+          description: NRIC/FIN ID that uniquely identifies a person in PSD
+          required: true
+          schema:
+            type: string
+            example: S876598Y
+        - name: idType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - NRIC
+              - FIN
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmployeeDto"
+        "404":
+          description: Employee not found
+        "400":
+          description: Error
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /employee/findByEmployeeId:
+    get:
+      tags:
+        - employee
+      summary: Find employee by employee ID
+      description: Find employee using the unique PSD employee ID
+      operationId: "findByEmployeeId"
+      parameters:
+        - name: employeeID
+          in: query
+          description: PSD Employee ID which is expected to be unique
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmployeeDto"
+        "400":
+          description: Invalid tag value
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    EmployeeDto:
+      type: object
+      properties:
+        uid:
+          type: string
+          description: unique employee id
+          example: PSD32453
+        companyCode:
+          type: string
+          description: agency code
+          example: PUB
+        idNumber:
+          type: string
+          description: NRIC/FIN
+          example: S768098T
+        idType:
+          type: string
+          enum:
+            - NRIC
+            - FIN
+        firstName:
+          type: string
+          example: Kenneth
+        lastName:
+          type: string
+          example: Rajaratnam
+        email:
+          type: string
+          format: kenneth.rajaratnam@pub.com
+    EmployeesDto:
+      type: "array"
+      items:
+        $ref: "#/components/schemas/EmployeeDto"
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
