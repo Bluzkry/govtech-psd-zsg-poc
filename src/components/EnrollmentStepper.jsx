@@ -27,7 +27,7 @@ export const EnrollmentStepper = ({
       stepHeader: "Employment Details",
     },
     {
-      component: <Summary />,
+      component: <Summary details={details} />,
       title: "Summary",
       stepHeader: "Summary",
     },
