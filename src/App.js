@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { Breadcrumb, Footer } from "@govtechsg/sgds-react";
 import { SgdsMasthead } from "@govtechsg/sgds-web-component/react";
 
 import { EnrollmentStepper } from "./components/EnrollmentStepper";
 import { Submitted } from "./components/Submitted";
+import { getApiUrl } from "./utils/getApiUrl";
 
 function App() {
+  const apiUrl = getApiUrl();
   const initialState = {
-    uid: "",
     companyCode: "", // agency code
     idNumber: "", // NRIC/FIN
     idType: "NRIC", // ID type (NRIC/FIN)
@@ -53,7 +55,25 @@ function App() {
   };
 
   const submit = () => {
-    setSubmitted(true);
+    const { companyCode, idNumber, idType, firstName, lastName, email } =
+      details;
+
+    axios
+      .post(`${apiUrl}/pocdexplus/employee-management/add-employee`, {
+        companyCode,
+        idNumber,
+        idType,
+        firstName,
+        lastName,
+        email,
+      })
+      .then((response) => {
+        setSubmitted(true);
+      })
+      .catch((err) => {
+        console.error("Error: ", err);
+        setSubmitted(true);
+      });
   };
 
   const restart = () => {

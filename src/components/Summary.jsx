@@ -6,7 +6,6 @@ const detailsConfig = [
     title: "Personal Information",
     parts: [
       {
-        uid: "UID",
         companyCode: "Company Code",
         idType: "NRIC/FIN",
         idNumber: "ID Number",

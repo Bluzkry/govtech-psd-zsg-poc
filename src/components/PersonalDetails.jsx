@@ -11,19 +11,6 @@ export const PersonalDetails = ({ details, handleChange }) => (
   <Col xs={12}>
     <h3>Personal Information</h3>
     <Row className="mb-3">
-      <Form.Group as={Col} xs={12} md={3} className="mb-3" controlId="uid">
-        <Form.Label>UID</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="UID"
-          name="uid"
-          onChange={handleChange}
-          value={details.uid}
-          spellCheck={false}
-          required
-        />
-      </Form.Group>
-
       <Form.Group
         as={Col}
         xs={12}
