@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { Breadcrumb, Footer } from "@govtechsg/sgds-react";
@@ -7,42 +8,45 @@ import { SgdsMasthead } from "@govtechsg/sgds-web-component/react";
 import { Router } from "./Router";
 import { getApiUrl } from "./utils/getApiUrl";
 
+const initialState = {
+  companyCode: "", // agency code
+  idNumber: "", // NRIC/FIN
+  idType: "NRIC", // ID type (NRIC/FIN)
+  firstName: "",
+  lastName: "",
+  middleName: "",
+  aliasName: "", // nickname
+  email: "",
+  mobileNumber: "",
+  officeNumber: "",
+  faxNumber: "",
+  employmentTitle: "",
+  employmentType: "Permanent", // Permanent, Fixed Term, Casual, Secondment/Attachment, Adjunct Worker, Intern, Sponsorship Holder, Deployed Worker, Scholarship Holder, External Contracted, Temporary, Non-Agency
+  tivoIndicator: false, // based on previous field
+  reportingManagerName: "",
+  reportingManagerEmail: "",
+  department: "",
+  primaryPosition: true,
+  officeAddressBlockNumber: "",
+  officeAddressStreetName: "",
+  officeAddressFloorNumber: "",
+  officeAddressUnitNumber: "",
+  officeAddressBuildingName: "",
+  officeAddressPostalCode: "",
+  officeCity: "",
+  officeState: "",
+  officeCountry: "",
+  officeAddressUnformatted: "", // for unformatted addresses
+  costCentreId: "",
+  costCentreName: "",
+  costCentreHead: "",
+  remarks: "",
+};
+
 function App() {
+  const { pathname } = useLocation();
+
   const apiUrl = getApiUrl();
-  const initialState = {
-    companyCode: "", // agency code
-    idNumber: "", // NRIC/FIN
-    idType: "NRIC", // ID type (NRIC/FIN)
-    firstName: "",
-    lastName: "",
-    middleName: "",
-    aliasName: "", // nickname
-    email: "",
-    mobileNumber: "",
-    officeNumber: "",
-    faxNumber: "",
-    employmentTitle: "",
-    employmentType: "Permanent", // Permanent, Fixed Term, Casual, Secondment/Attachment, Adjunct Worker, Intern, Sponsorship Holder, Deployed Worker, Scholarship Holder, External Contracted, Temporary, Non-Agency
-    tivoIndicator: false, // based on previous field
-    reportingManagerName: "",
-    reportingManagerEmail: "",
-    department: "",
-    primaryPosition: true,
-    officeAddressBlockNumber: "",
-    officeAddressStreetName: "",
-    officeAddressFloorNumber: "",
-    officeAddressUnitNumber: "",
-    officeAddressBuildingName: "",
-    officeAddressPostalCode: "",
-    officeCity: "",
-    officeState: "",
-    officeCountry: "",
-    officeAddressUnformatted: "", // for unformatted addresses
-    costCentreId: "",
-    costCentreName: "",
-    costCentreHead: "",
-    remarks: "",
-  };
   const [details, setDetails] = useState(initialState);
 
   const handleChange = (e) => {
@@ -83,10 +87,20 @@ function App() {
       <SgdsMasthead />
       <sgds-template-grid>
         <sgds-content-area>
-          <Breadcrumb>
-            <Breadcrumb.Item href="https://www.gov.sg/">HOME</Breadcrumb.Item>
-            <Breadcrumb.Item active>SIGN-UP</Breadcrumb.Item>
-          </Breadcrumb>
+          <HeaderLinks>
+            <Breadcrumb>
+              <Breadcrumb.Item href="https://www.gov.sg/">HOME</Breadcrumb.Item>
+              <Breadcrumb.Item active>
+                {pathname.slice(1).toUpperCase()}
+              </Breadcrumb.Item>
+            </Breadcrumb>
+            <HeaderLinksRight>
+              {pathname !== "/sign-up" && <Link to="/sign-up">Sign-Up</Link>}
+              {pathname !== "/employees" && (
+                <Link to="/employees">Employees</Link>
+              )}
+            </HeaderLinksRight>
+          </HeaderLinks>
           <Router
             details={details}
             handleChange={handleChange}
@@ -132,6 +146,16 @@ function App() {
     </>
   );
 }
+
+const HeaderLinks = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const HeaderLinksRight = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
 
 const FooterLinkNewWindow = styled.a`
   &[target="_blank"]::after {

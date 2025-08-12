@@ -1,14 +1,15 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { EnrollmentStepper } from "./components/EnrollmentStepper";
+import { EnrollmentStepper } from "./components/enrollment/EnrollmentStepper";
+import { Employees } from "./components/Employees";
 import { Submitted } from "./components/Submitted";
 
 export const Router = ({ details, handleChange, submit, resetForm }) => (
   <Routes>
-    <Route from="/" element={<Navigate to="/signup" replace={true} />} />
+    <Route from="/" element={<Navigate to="/sign-up" replace={true} />} />
     <Route
-      path="signup"
+      path="sign-up"
       element={
         <EnrollmentStepper
           details={details}
@@ -18,7 +19,8 @@ export const Router = ({ details, handleChange, submit, resetForm }) => (
         />
       }
     ></Route>
+    <Route path="employees" element={<Employees />}></Route>
     <Route path="submitted" element={<Submitted />}></Route>
-    <Route path="*" element={<Navigate to="/signup" replace />} />
+    <Route path="*" element={<Navigate to="/sign-up" replace />} />
   </Routes>
 );

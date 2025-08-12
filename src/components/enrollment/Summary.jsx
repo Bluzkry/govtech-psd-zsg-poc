@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { Col, Row } from "@govtechsg/sgds-react";
 
 const detailsConfig = [
@@ -102,9 +103,7 @@ export const Summary = ({ details }) => (
     {detailsConfig.map((section, i) => (
       <Row className="mb-3" key={`section${i}`}>
         <Row className="mb-2">
-          <div style={{ fontSize: "1.25rem", fontStyle: "italic" }}>
-            {section.title}
-          </div>
+          <Title>{section.title}</Title>
         </Row>
 
         {section.parts.map((part, i) => (
@@ -126,3 +125,8 @@ export const Summary = ({ details }) => (
     ))}
   </Col>
 );
+
+const Title = styled.div`
+  font-size: 1.25rem;
+  font-style: italic;
+`;
