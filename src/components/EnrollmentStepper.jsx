@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button, Form, Stepper, useStep } from "@govtechsg/sgds-react";
 
 import { PersonalDetails } from "./PersonalDetails";
@@ -55,6 +56,15 @@ export const EnrollmentStepper = ({
     submit();
   };
 
+  const Next = () =>
+    stepsMetadata.isLastStep(stepState.currentStep) ? (
+      <Link to="/submitted">
+        <NextButton />
+      </Link>
+    ) : (
+      <NextButton />
+    );
+
   const NextButton = () => (
     <Button
       onClick={
@@ -82,7 +92,7 @@ export const EnrollmentStepper = ({
           >
             Cancel
           </a>
-          <NextButton />
+          <Next />
         </div>
       </sgds-content-header-top>
       <Stepper methods={stepMethods} />

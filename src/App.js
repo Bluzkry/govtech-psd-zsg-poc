@@ -4,8 +4,7 @@ import styled from "styled-components";
 import { Breadcrumb, Footer } from "@govtechsg/sgds-react";
 import { SgdsMasthead } from "@govtechsg/sgds-web-component/react";
 
-import { EnrollmentStepper } from "./components/EnrollmentStepper";
-import { Submitted } from "./components/Submitted";
+import { Router } from "./Router";
 import { getApiUrl } from "./utils/getApiUrl";
 
 function App() {
@@ -45,7 +44,6 @@ function App() {
     remarks: "",
   };
   const [details, setDetails] = useState(initialState);
-  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
     setDetails({
@@ -68,17 +66,12 @@ function App() {
         email,
       })
       .then((response) => {
-        setSubmitted(true);
+        resetForm();
       })
       .catch((err) => {
         console.error("Error: ", err);
-        setSubmitted(true);
+        resetForm();
       });
-  };
-
-  const restart = () => {
-    resetForm();
-    setSubmitted(false);
   };
 
   const resetForm = () => {
@@ -94,16 +87,12 @@ function App() {
             <Breadcrumb.Item href="https://www.gov.sg/">HOME</Breadcrumb.Item>
             <Breadcrumb.Item active>SIGN-UP</Breadcrumb.Item>
           </Breadcrumb>
-          {submitted ? (
-            <Submitted restart={restart} />
-          ) : (
-            <EnrollmentStepper
-              details={details}
-              handleChange={handleChange}
-              submit={submit}
-              resetForm={resetForm}
-            />
-          )}
+          <Router
+            details={details}
+            handleChange={handleChange}
+            submit={submit}
+            resetForm={resetForm}
+          />
         </sgds-content-area>
       </sgds-template-grid>
       <Footer>
